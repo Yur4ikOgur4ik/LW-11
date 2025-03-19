@@ -49,6 +49,10 @@
               "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
+            {
               "$type": "Document",
               "DocumentIndex": 2,
               "Title": "ElectroGuitar.cs",
@@ -58,8 +62,7 @@
               "RelativeToolTip": "MusicalInstruments\\ElectroGuitar.cs",
               "ViewState": "AgIAAGwAAAAAAAAAAAAmwIQAAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-18T17:15:22.384Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-18T17:15:22.384Z"
             },
             {
               "$type": "Document",
@@ -71,8 +74,7 @@
               "RelativeToolTip": "MusicalInstruments\\ValidInput.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-18T17:12:59.4Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-18T17:12:59.4Z"
             },
             {
               "$type": "Document",
@@ -84,8 +86,7 @@
               "RelativeToolTip": "MusicalInstruments\\Piano.cs",
               "ViewState": "AgIAAFUAAAAAAAAAAAAcwHsAAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-18T16:59:27.239Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-18T16:59:27.239Z"
             },
             {
               "$type": "Document",
@@ -97,8 +98,7 @@
               "RelativeToolTip": "MusicalInstruments\\Guitar.cs",
               "ViewState": "AgIAADsAAAAAAAAAAAAuwFcAAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-18T16:58:38.468Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-18T16:58:38.468Z"
             },
             {
               "$type": "Document",
@@ -110,12 +110,7 @@
               "RelativeToolTip": "MusicalInstruments\\MusicalInstrument.cs",
               "ViewState": "AgIAAE0AAAAAAAAAAAAswFcAAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-18T16:52:24.815Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+              "WhenOpened": "2025-03-18T16:52:24.815Z"
             },
             {
               "$type": "Document",
@@ -125,7 +120,7 @@
               "RelativeDocumentMoniker": "LW11\\Program.cs",
               "ToolTip": "C:\\Users\\PogU\\source\\repos\\LW11\\LW-11\\LW11\\Program.cs*",
               "RelativeToolTip": "LW11\\Program.cs*",
-              "ViewState": "AgIAAMAAAAAAAAAAAAAmwN4AAAAnAAAAAAAAAA==",
+              "ViewState": "AgIAAPAAAAAAAAAAAAAuwAEBAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-18T16:42:58.196Z",
               "EditorCaption": ""

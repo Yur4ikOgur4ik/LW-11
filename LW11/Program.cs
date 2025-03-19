@@ -1,6 +1,7 @@
 ﻿using MusicalInstruments;
 using System.Collections;
 using System;
+using System.Dynamic;
 
 
 namespace LW11
@@ -98,6 +99,37 @@ namespace LW11
             }
 
             return deepCopy;
+        }
+
+        static Queue SortQueue(Queue queue)
+        {
+            int i = 0;
+            Queue sortedQueue = new Queue();
+
+            MusicalInstrument[] helperArray = new MusicalInstrument[queue.Count];
+            MusicalInstrument[] sortedArr = new MusicalInstrument[queue.Count];
+
+            queue.CopyTo(helperArray, 0);
+
+            for (i = 0; i < helperArray.Length; i++) 
+            {
+                if (helperArray[i] is ICloneable itemToClone)
+                {
+                    sortedArr[i] = (MusicalInstrument)itemToClone.Clone();//cloniruem every elem in array
+                }
+                else
+                    throw new InvalidOperationException("Element does not support cloning");
+            }
+
+
+            Array.Sort(sortedArr);//sorting by name 
+
+            foreach (var item in sortedArr)
+            {
+                sortedQueue.Enqueue(item);
+            }
+
+            return sortedQueue;
         }
         static void Main(string[] args)
         {
@@ -223,7 +255,16 @@ namespace LW11
             PrintQueue(instrumentsQueue);
             Console.WriteLine("Cloned queue after deleting some stuff from original queue:");
             PrintQueue(cloneInstruments);
+            Console.ReadLine();
+            Console.Clear();
 
+
+            //sorting 
+            Queue sortedQueue = SortQueue(instrumentsQueue);
+            Console.WriteLine("Unsorted queue");
+            PrintQueue(instrumentsQueue);
+            Console.WriteLine("Sorted queue");
+            PrintQueue(sortedQueue);
 
             #endregion
         }
