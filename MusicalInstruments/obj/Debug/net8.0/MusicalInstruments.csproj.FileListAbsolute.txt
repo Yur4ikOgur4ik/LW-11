@@ -66,3 +66,15 @@ C:\Users\PogU\source\repos\LW11\LW-11\MusicalInstruments\obj\Debug\net8.0\Musica
 C:\Users\PogU\source\repos\LW11\LW-11\MusicalInstruments\obj\Debug\net8.0\MusicalInstruments.AssemblyInfo.cs
 C:\Users\PogU\source\repos\LW11\LW-11\MusicalInstruments\obj\Debug\net8.0\MusicalInstruments.csproj.CoreCompileInputs.cache
 C:\Users\PogU\source\repos\LW11\LW-11\MusicalInstruments\obj\Debug\net8.0\ref\MusicalInstruments.dll
+C:\Users\JAM\OneDrive\Документы\GitHub\LW-11\MusicalInstruments\bin\Debug\net8.0\MusicalInstruments.deps.json
+C:\Users\JAM\OneDrive\Документы\GitHub\LW-11\MusicalInstruments\bin\Debug\net8.0\MusicalInstruments.dll
+C:\Users\JAM\OneDrive\Документы\GitHub\LW-11\MusicalInstruments\bin\Debug\net8.0\MusicalInstruments.pdb
+C:\Users\JAM\OneDrive\Документы\GitHub\LW-11\MusicalInstruments\obj\Debug\net8.0\MusicalInstruments.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\JAM\OneDrive\Документы\GitHub\LW-11\MusicalInstruments\obj\Debug\net8.0\MusicalInstruments.AssemblyInfoInputs.cache
+C:\Users\JAM\OneDrive\Документы\GitHub\LW-11\MusicalInstruments\obj\Debug\net8.0\MusicalInstruments.AssemblyInfo.cs
+C:\Users\JAM\OneDrive\Документы\GitHub\LW-11\MusicalInstruments\obj\Debug\net8.0\MusicalInstruments.csproj.CoreCompileInputs.cache
+C:\Users\JAM\OneDrive\Документы\GitHub\LW-11\MusicalInstruments\obj\Debug\net8.0\MusicalInstruments.sourcelink.json
+C:\Users\JAM\OneDrive\Документы\GitHub\LW-11\MusicalInstruments\obj\Debug\net8.0\MusicalInstruments.dll
+C:\Users\JAM\OneDrive\Документы\GitHub\LW-11\MusicalInstruments\obj\Debug\net8.0\refint\MusicalInstruments.dll
+C:\Users\JAM\OneDrive\Документы\GitHub\LW-11\MusicalInstruments\obj\Debug\net8.0\MusicalInstruments.pdb
+C:\Users\JAM\OneDrive\Документы\GitHub\LW-11\MusicalInstruments\obj\Debug\net8.0\ref\MusicalInstruments.dll

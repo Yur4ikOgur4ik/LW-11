@@ -131,6 +131,23 @@ namespace LW11
 
             return sortedQueue;
         }
+        static Queue DeleteByPosition(Queue queue, int toDelete)
+        {
+            Queue delQueue = new Queue();
+            int num = 1;
+            foreach (var item in queue)
+            {
+                if (num == toDelete)
+                    num++;
+                else
+                {
+                    delQueue.Enqueue(item);
+                    num++;
+                }
+
+            }
+            return delQueue;
+        }
         static void Main(string[] args)
         {
             #region Part 1
@@ -207,20 +224,16 @@ namespace LW11
 
 
             //Deleting
-            Console.WriteLine("Input number of items to delete from queue");
+            Console.WriteLine("Input number of item to delete");
             int sizeToDelete = ValidInput.GetInt();
-            while (sizeToDelete > instrumentsQueue.Count) 
+            while (sizeToDelete<0)
             {
-                Console.WriteLine("Can't delete more objects than in queue");
+                Console.WriteLine("Number cant be <0, enter again");
                 sizeToDelete = ValidInput.GetInt();
             }
 
-            for (int i = 0; i < sizeToDelete; i++)
-            { 
-                instrumentsQueue.Dequeue();
-            }
-
-            Console.WriteLine($"Queue after deleting {sizeToDelete} elements");
+            instrumentsQueue = DeleteByPosition(instrumentsQueue, sizeToDelete);
+            Console.WriteLine($"Queue after deleting {sizeToDelete} element");
             PrintQueue(instrumentsQueue);
 
             //1 zapros
