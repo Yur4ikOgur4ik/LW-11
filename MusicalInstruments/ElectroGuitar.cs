@@ -69,25 +69,25 @@ namespace MusicalInstruments
         //    return $"{base.ToString()}, power source: {PowerSource}";
         //}
 
-        //public override void Init()
-        //{
-        //    base.Init();
-            
-        //    bool isValid = false;
-        //    while (!isValid)
-        //    {
-        //        try
-        //        {
-        //            PowerSource = Console.ReadLine().Trim();
-        //            isValid = true;
-        //        }
-        //        catch (ArgumentException ex)
-        //        {
-        //            Console.WriteLine($"Error: {ex.Message}");
-        //            Console.WriteLine("Try again.");
-        //        }
-        //    }
-        //}
+        public override void Init()
+        {
+            base.Init();
+
+            bool isValid = false;
+            while (!isValid)
+            {
+                try
+                {
+                    PowerSource = Console.ReadLine().Trim();
+                    isValid = true;
+                }
+                catch (ArgumentException ex)
+                {
+                    Console.WriteLine($"Error: {ex.Message}");
+                    Console.WriteLine("Try again.");
+                }
+            }
+        }
 
         public override void RandomInit()
         {

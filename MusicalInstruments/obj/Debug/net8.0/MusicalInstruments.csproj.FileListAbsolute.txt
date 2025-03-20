@@ -66,3 +66,4 @@ C:\Users\PogU\source\repos\LW11\LW-11\MusicalInstruments\obj\Debug\net8.0\Musica
 C:\Users\PogU\source\repos\LW11\LW-11\MusicalInstruments\obj\Debug\net8.0\MusicalInstruments.AssemblyInfo.cs
 C:\Users\PogU\source\repos\LW11\LW-11\MusicalInstruments\obj\Debug\net8.0\MusicalInstruments.csproj.CoreCompileInputs.cache
 C:\Users\PogU\source\repos\LW11\LW-11\MusicalInstruments\obj\Debug\net8.0\ref\MusicalInstruments.dll
+C:\Users\PogU\source\repos\LW11\LW-11\MusicalInstruments\obj\Debug\net8.0\MusicalInstruments.sourcelink.json

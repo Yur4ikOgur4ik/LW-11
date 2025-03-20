@@ -16,7 +16,7 @@ namespace MusicalInstruments
             get {return keyLayout;}
             set
             {
-                string[] validLayouts = { "Octave", "Scale", "Digital" };
+                string[] validLayouts = { "Octave", "Scale", "Digital", "Acoustic", "C", "C-Sharp (D-Flat)", "Minor", "Major", "D", "D-Sharp (E-Flat)", "E", "F", "F-Sharp (G-Flat)" };
                 if (!Array.Exists(validLayouts, s => s.Equals(value, StringComparison.OrdinalIgnoreCase)))
                     throw new ArgumentException("Invalid keyboard layout.");
                 keyLayout = value;
@@ -46,18 +46,18 @@ namespace MusicalInstruments
             KeyCount = keyCount;
         }
 
-        //public override void ShowVirtual()
-        //{
-        //    base.ShowVirtual();
-        //    Console.WriteLine($"Number of keys {KeyCount}");
-        //    Console.WriteLine($"Key layout: {KeyLayout}");
-        //}
-        //public void Show()
-        //{
-        //    Console.WriteLine($"Name: {Name}");
-        //    Console.WriteLine($"Key layout: {KeyLayout}");
-        //    Console.WriteLine($"Number of keys: {KeyCount}");
-        //}
+        public override void ShowVirtual()
+        {
+            base.ShowVirtual();
+            Console.WriteLine($"Number of keys {KeyCount}");
+            Console.WriteLine($"Key layout: {KeyLayout}");
+        }
+        public void Show()
+        {
+            Console.WriteLine($"Name: {Name}");
+            Console.WriteLine($"Key layout: {KeyLayout}");
+            Console.WriteLine($"Number of keys: {KeyCount}");
+        }
 
 
         public override string ToString() 
@@ -65,45 +65,45 @@ namespace MusicalInstruments
             return $"{base.ToString()}, key layout: {KeyLayout}, number of keys: {KeyCount}";
         }
 
-        //public override void Init()
-        //{
-        //    base.Init();
-        //    bool isValid = false;
-        //    while (!isValid)
-        //    {
-        //        try
-        //        {
-        //            KeyLayout = Console.ReadLine().Trim();
-        //            isValid = true;
-        //        }
-        //        catch (ArgumentException ex)
-        //        {
-        //            Console.WriteLine($"Error: {ex.Message}");
-        //            Console.WriteLine("Try again.");
-        //        }
-        //    }
-        //    try
-        //    {
-        //        KeyCount = ValidInput.GetInt();
-        //    }
-        //    catch (Exception ex) when (ex is ArgumentException)
-        //    {
-        //        Console.WriteLine($"Error: {ex.Message}");
-        //        Console.WriteLine("Because of error, making a standart number of keys (88)");
-        //        KeyCount = 81;
-
-
-        //    }
-        //    //Console.Write("Enter keyboard layout (Octave/Scale/Digital): ");
-        //    KeyLayout = Console.ReadLine();
-        //    //Console.Write("Enter number of keys: ");
-            
-        //}
+        public override void Init()
+        {
+            base.Init();
+            bool isValid = false;
+            while (!isValid)
+            {
+                try
+                {
+                    Console.WriteLine("Enter key layout");
+                    KeyLayout = Console.ReadLine().Trim();
+                    isValid = true;
+                }
+                catch (ArgumentException ex)
+                {
+                    Console.WriteLine($"Error: {ex.Message}");
+                    Console.WriteLine("Try again.");
+                }
+            }
+            isValid = false;
+            while (!isValid)
+            {
+                try
+                {
+                    Console.WriteLine("Enter key count");
+                    KeyCount = ValidInput.GetInt();
+                    isValid = true;
+                }
+                catch (Exception ex) when (ex is ArgumentException)
+                {
+                    Console.WriteLine($"Error: {ex.Message}");
+                    Console.WriteLine("Try again.");
+                }
+            }
+        }
 
         public override void RandomInit()
         {
             base.RandomInit();
-            string[] layouts = { "Octave", "Scale", "Digital" };
+            string[] layouts = { "Octave", "Scale", "Digital", "Acoustic", "C", "C-Sharp (D-Flat)", "Minor", "Major", "D", "D-Sharp (E-Flat)", "E", "F", "F-Sharp (G-Flat)" };
             KeyLayout = layouts[rnd.Next(layouts.Length)];
             KeyCount = rnd.Next(25, 105);
         }
@@ -126,5 +126,13 @@ namespace MusicalInstruments
             return new Piano(this.Name, this.ID.id, this.KeyLayout, this.KeyCount);
         }
 
+
+        public MusicalInstrument GetBase
+        {
+            get
+            {
+                return new MusicalInstrument(this.Name, this.ID.Id); // возвращаем объект базового класса с теми же значениями
+            }
+        }
     }
 }

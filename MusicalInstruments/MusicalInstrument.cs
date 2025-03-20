@@ -52,20 +52,49 @@ namespace MusicalInstruments
 
         public virtual void Init()//Vvod nazvaniya instrumenta
         {
-            Name = Console.ReadLine();
+            bool isValid = false;
+            while (!isValid)
+            {
+                try
+                {
+                    Console.WriteLine("Enter Id");
+                    ID.Id = ValidInput.GetInt();
+                    isValid = true;
+                }
+                catch (ArgumentException ex)
+                {
+                    Console.WriteLine($"Error: {ex.Message}");
+                    Console.WriteLine("Try again.");
+                }
+            }
+            isValid = false;
+            while (!isValid)
+            {
+                try
+                {
+                    Console.WriteLine("Enter name");
+                    Name = Console.ReadLine().Trim();
+                    isValid = true;
+                }
+                catch (ArgumentException ex)
+                {
+                    Console.WriteLine($"Error: {ex.Message}");
+                    Console.WriteLine("Try again.");
+                }
+            }
         }
 
         public virtual void RandomInit()
         {
             string[] names = {"Garmoshka", "Antowka", "CoolInstrument", "Goida", "RandomName123", "WhoCares", "UraNetToi"};
-            ID.id = rnd.Next(0, 100);
+            ID.id = rnd.Next(1, 100);
             Name = names[rnd.Next(names.Length)];
         }
 
         public override bool Equals(object? obj)
         {
             if (obj == null || GetType() != obj.GetType())//chech if null or different types
-                return false;
+                return false; 
 
             MusicalInstrument other = (MusicalInstrument)obj;
             return (string.Equals(Name, other.Name, StringComparison.OrdinalIgnoreCase) && ID.Equals(other.ID));//compare ignoring register (A = a)
@@ -87,7 +116,7 @@ namespace MusicalInstruments
 
         public virtual object Clone()
         {
-            return new MusicalInstrument(this.Name, this.ID.id);
+            return new MusicalInstrument(this.Name, this.ID.Id);
         }
 
         public object ShallowCopy()
