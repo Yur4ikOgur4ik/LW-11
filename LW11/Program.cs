@@ -8,6 +8,7 @@ namespace LW11
 {
     internal class Program
     {
+        #region Queue Functions
         public static double AverageNumberOfStrings(Queue instruments)
         {
             double count = 0;
@@ -131,16 +132,17 @@ namespace LW11
 
             return sortedQueue;
         }
+
         static Queue DeleteByPosition(Queue queue, int toDelete)
         {
             Queue delQueue = new Queue();
             int num = 1;
-            foreach (var item in queue)
+            foreach (var item in queue) 
             {
                 if (num == toDelete)
                     num++;
                 else
-                {
+                { 
                     delQueue.Enqueue(item);
                     num++;
                 }
@@ -148,11 +150,55 @@ namespace LW11
             }
             return delQueue;
         }
+        #endregion
+        #region Stack thingies
+        static void PrintStack(IEnumerable<MusicalInstrument> stack)
+        {
+            foreach (var item in stack)
+            {
+                Console.WriteLine(item);
+            }
+        }
+
+        static Stack<MusicalInstrument> DeleteByNumStack(Stack<MusicalInstrument> stack, int toDelete)
+        {
+            if (toDelete <= 0)
+            {
+                throw new ArgumentException("Позиция должна быть больше 0.");
+            }
+
+            Stack<MusicalInstrument> tempStack = new Stack<MusicalInstrument>();
+            int num = 1;
+
+            while (stack.Count > 0)
+            {
+                var item = stack.Pop();
+                if (num != toDelete)
+                {
+                    tempStack.Push(item);
+                }
+                num++;
+            }
+
+            // Восстанавливаем исходный порядок элементов
+            while (tempStack.Count > 0)
+            {
+                stack.Push(tempStack.Pop());
+            }
+
+            return stack;
+        }
+
+
+        #endregion
         static void Main(string[] args)
         {
             #region Part 1
 
+            
+
             Queue instrumentsQueue = new Queue();
+            
 
             int size = 5;
 
@@ -224,16 +270,11 @@ namespace LW11
 
 
             //Deleting
-            Console.WriteLine("Input number of item to delete");
-            int sizeToDelete = ValidInput.GetInt();
-            while (sizeToDelete<0)
-            {
-                Console.WriteLine("Number cant be <0, enter again");
-                sizeToDelete = ValidInput.GetInt();
-            }
+            Console.WriteLine("Input number of elem to delete");
+            int posToDelete = ValidInput.GetInt();
+            instrumentsQueue = DeleteByPosition(instrumentsQueue, posToDelete);
 
-            instrumentsQueue = DeleteByPosition(instrumentsQueue, sizeToDelete);
-            Console.WriteLine($"Queue after deleting {sizeToDelete} element");
+            Console.WriteLine($"Queue after deleting {posToDelete} element");
             PrintQueue(instrumentsQueue);
 
             //1 zapros
@@ -278,6 +319,56 @@ namespace LW11
             PrintQueue(instrumentsQueue);
             Console.WriteLine("Sorted queue");
             PrintQueue(sortedQueue);
+
+            #endregion
+
+
+            #region Part 2
+            Console.WriteLine("End of part 1");
+            Console.ReadLine();
+            Console.Clear();
+            Stack<MusicalInstrument> instrumentsStack = new Stack<MusicalInstrument>();
+            Console.WriteLine("Input how much objects to add");
+            sizeToAdd = ValidInput.GetInt();
+            for (int i = 0; i < sizeToAdd; i++)
+            {
+                switch (rnd.Next(4))
+                {
+                    case 0:
+                        MusicalInstrument instr = new MusicalInstrument();
+                        instr.RandomInit();
+                        instrumentsStack.Push(instr);
+                        break;
+                    case 1:
+                        instr = new Guitar();
+                        instr.RandomInit();
+                        instrumentsStack.Push(instr);
+                        break;
+                    case 2:
+                        instr = new ElectroGuitar();
+                        instr.RandomInit();
+                        instrumentsStack.Push(instr);
+                        break;
+                    case 3:
+                        instr = new Piano();
+                        instr.RandomInit();
+                        instrumentsStack.Push(instr);
+                        break;
+                }
+            }
+            PrintStack(instrumentsStack);
+
+            Console.WriteLine("Enter a number of element to delete");
+
+            posToDelete = ValidInput.GetInt();
+
+            instrumentsStack =DeleteByNumStack(instrumentsStack, posToDelete);
+            PrintStack(instrumentsStack);
+
+
+
+
+
 
             #endregion
         }
