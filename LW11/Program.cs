@@ -457,126 +457,147 @@ namespace LW11
         #endregion
         static void Main(string[] args)
         {
-            //#region Part 1
+            #region Part 1
 
 
 
-            //Queue instrumentsQueue = new Queue();
+            Queue instrumentsQueue = new Queue();
 
 
-            //int size = 5;
+            int size = 5;
 
-            //MusicalInstrument[] instruments = new MusicalInstrument[size];
-            //Random rnd = new Random();
-
-
-            //for (int i = 0; i < instruments.Length; i++)//initializing array of random stuff
-            //{
-            //    switch (rnd.Next(4))
-            //    {
-            //        case 0:
-            //            instruments[i] = new MusicalInstrument();
-            //            break;
-            //        case 1:
-            //            instruments[i] = new Guitar();
-            //            break;
-            //        case 2:
-            //            instruments[i] = new ElectroGuitar();
-            //            break;
-            //        case 3:
-            //            instruments[i] = new Piano();
-            //            break;
-
-            //    }
-            //}
-
-            //foreach (var instr in instruments) //making stuff random
-            //{
-            //    instr.RandomInit();
-            //    instrumentsQueue.Enqueue(instr);
-            //}
-
-            //Console.WriteLine("Created queue:");
-            //PrintQueue(instrumentsQueue);
-
-            ////Adding to queue
-            //Console.WriteLine("Adding");
-            //instrumentsQueue = AddToQueue(instrumentsQueue);
-            //PrintQueue(instrumentsQueue);
-            //Console.ReadLine();
-            //Console.Clear();
-
-            ////Deleting
-            //Console.WriteLine("Deleting");
-            //PrintQueue(instrumentsQueue);
-            //instrumentsQueue = DeleteInstrument(instrumentsQueue);
-            //PrintQueue(instrumentsQueue);
-            //Console.ReadLine();
-            //Console.Clear();
-
-            ////Zaprosi
-            ////1 zapros
-            //if (AverageNumberOfStrings(instrumentsQueue) < 0)
-            //    Console.WriteLine("Array has no guitars");
-            //else
-            //    Console.WriteLine($"Average number of string is {AverageNumberOfStrings(instrumentsQueue)}");
-
-            ////2 zaproa
-            //if (NumberOfStringInElectroGuitarsWithFixedPower(instrumentsQueue) < 0)
-            //    Console.WriteLine("There is no electroguitars with fixed source");
-
-            //else
-            //    Console.WriteLine($"Number of strings in e-guitars with fixed power: {NumberOfStringInElectroGuitarsWithFixedPower(instrumentsQueue)}");
-
-            ////2 zapros
-            //if (MaxNumberOfKeysOnOctave(instrumentsQueue) < 0)
-            //    Console.WriteLine($"There were no pianos with octave keyboard layout");
-            //else
-            //    Console.WriteLine($"Max number of keys on octave keyboard is {MaxNumberOfKeysOnOctave(instrumentsQueue)}");
-
-            ////Cloning queue
-            //Queue cloneInstruments = new Queue();
-            //cloneInstruments = DeepCopyQueue(instrumentsQueue);
-            //Console.WriteLine("Cloned queue");
-            //PrintQueue(cloneInstruments);
-
-            //instrumentsQueue.Dequeue();
-            //instrumentsQueue.Dequeue();
-            //instrumentsQueue.Dequeue();
-            //Console.WriteLine("Original queue after deleting some:");
-            //PrintQueue(instrumentsQueue);
-            //Console.WriteLine("Cloned queue after deleting some stuff from original queue:");
-            //PrintQueue(cloneInstruments);
-            //Console.ReadLine();
-            //Console.Clear();
-
-            ////sorting 
-            //Queue sortedQueue = SortQueue(instrumentsQueue);
-            //Console.WriteLine("Unsorted queue");
-            //PrintQueue(instrumentsQueue);
-            //Console.WriteLine("Sorted queue");
-            //PrintQueue(sortedQueue);
-
-            ////Find elem
-            //MusicalInstrument target;
-            //target = FindInstrument(instrumentsQueue);
-            //if (target == null)
-            //    Console.WriteLine("item not found");
-            //else
-            //    Console.WriteLine(target = FindInstrument(instrumentsQueue));
+            MusicalInstrument[] instruments = new MusicalInstrument[size];
+            Random rnd = new Random();
 
 
+            for (int i = 0; i < instruments.Length; i++)//initializing array of random stuff
+            {
+                switch (rnd.Next(4))
+                {
+                    case 0:
+                        instruments[i] = new MusicalInstrument();
+                        break;
+                    case 1:
+                        instruments[i] = new Guitar();
+                        break;
+                    case 2:
+                        instruments[i] = new ElectroGuitar();
+                        break;
+                    case 3:
+                        instruments[i] = new Piano();
+                        break;
+
+                }
+            }
+
+            foreach (var instr in instruments) //making stuff random
+            {
+                instr.RandomInit();
+                instrumentsQueue.Enqueue(instr);
+            }
+
+            Console.WriteLine("Created queue:");
+            PrintQueue(instrumentsQueue);
+
+            //Adding to queue
+            Console.WriteLine("Adding");
+            instrumentsQueue = AddToQueue(instrumentsQueue);
+            PrintQueue(instrumentsQueue);
+            Console.ReadLine();
+            Console.Clear();
+
+            //Deleting
+            Console.WriteLine("Deleting");
+            PrintQueue(instrumentsQueue);
+            instrumentsQueue = DeleteInstrument(instrumentsQueue);
+            PrintQueue(instrumentsQueue);
+            Console.ReadLine();
+            Console.Clear();
+
+            //Zaprosi
+            //1 zapros
+            if (AverageNumberOfStrings(instrumentsQueue) < 0)
+                Console.WriteLine("Array has no guitars");
+            else
+                Console.WriteLine($"Average number of string is {AverageNumberOfStrings(instrumentsQueue)}");
+
+            //2 zaproa
+            if (NumberOfStringInElectroGuitarsWithFixedPower(instrumentsQueue) < 0)
+                Console.WriteLine("There is no electroguitars with fixed source");
+
+            else
+                Console.WriteLine($"Number of strings in e-guitars with fixed power: {NumberOfStringInElectroGuitarsWithFixedPower(instrumentsQueue)}");
+
+            //2 zapros
+            if (MaxNumberOfKeysOnOctave(instrumentsQueue) < 0)
+                Console.WriteLine($"There were no pianos with octave keyboard layout");
+            else
+                Console.WriteLine($"Max number of keys on octave keyboard is {MaxNumberOfKeysOnOctave(instrumentsQueue)}");
+
+            //Cloning queue
+            Queue cloneInstruments = new Queue();
+            cloneInstruments = DeepCopyQueue(instrumentsQueue);
+            Console.WriteLine("Cloned queue");
+            PrintQueue(cloneInstruments);
+
+            instrumentsQueue.Dequeue();
+            instrumentsQueue.Dequeue();
+            instrumentsQueue.Dequeue();
+            Console.WriteLine("Original queue after deleting some:");
+            PrintQueue(instrumentsQueue);
+            Console.WriteLine("Cloned queue after deleting some stuff from original queue:");
+            PrintQueue(cloneInstruments);
+            Console.ReadLine();
+            Console.Clear();
+
+            //sorting 
+            Queue sortedQueue = SortQueue(instrumentsQueue);
+            Console.WriteLine("Unsorted queue");
+            PrintQueue(instrumentsQueue);
+            Console.WriteLine("Sorted queue");
+            PrintQueue(sortedQueue);
+
+            //Find elem
+            MusicalInstrument target;
+            target = FindInstrument(instrumentsQueue);
+            if (target == null)
+                Console.WriteLine("item not found");
+            else
+                Console.WriteLine(target = FindInstrument(instrumentsQueue));
 
 
 
-            //#endregion
 
-            //#region Part 2
-            //Console.WriteLine("End of part 1");
-            //Console.ReadLine();
-            //Console.Clear();
-            //Stack<MusicalInstrument> instrumentsStack = new Stack<MusicalInstrument>();
-            //Console.WriteLine("Input how much objects to add");
+
+            #endregion
+
+            #region Part 2
+            Console.WriteLine("End of part 1");
+            Console.ReadLine();
+            Console.Clear();
+            Stack<MusicalInstrument> instrumentsStack = new Stack<MusicalInstrument>();
+            Console.WriteLine("Input how much objects to add");
+            SortStack(instrumentsStack);
+            DeleteInstrument(instrumentsStack);
+            FindInstrument(instrumentsStack);
+            //1 zapros
+            if (AverageNumberOfStrings(instrumentsStack) < 0)
+                Console.WriteLine("Array has no guitars");
+            else
+                Console.WriteLine($"Average number of string is {AverageNumberOfStrings(instrumentsStack)}");
+
+            //2 zaproa
+            if (NumberOfStringInElectroGuitarsWithFixedPower(instrumentsStack) < 0)
+                Console.WriteLine("There is no electroguitars with fixed source");
+
+            else
+                Console.WriteLine($"Number of strings in e-guitars with fixed power: {NumberOfStringInElectroGuitarsWithFixedPower(instrumentsStack)}");
+
+            //2 zapros
+            if (MaxNumberOfKeysOnOctave(instrumentsStack) < 0)
+                Console.WriteLine($"There were no pianos with octave keyboard layout");
+            else
+                Console.WriteLine($"Max number of keys on octave keyboard is {MaxNumberOfKeysOnOctave(instrumentsStack)}");
 
 
 
