@@ -23,6 +23,21 @@ namespace MusicalInstruments
             }
         }
 
+        public static int GetPositiveInt(string message = "Input an integer > 0")
+        {
+            int result;
+
+            while (true)
+            {
+                Console.WriteLine(message);
+                string input = Console.ReadLine();
+                if (int.TryParse(input, out result) && result>0)
+                    return result;
+                else
+                    Console.WriteLine("Error: the number is not integer > 0, enter again");
+            }
+        }
+
         public static double GetDouble(string message = "Input a real number")
         {
             double result;

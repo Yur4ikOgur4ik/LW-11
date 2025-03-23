@@ -2,12 +2,83 @@
 using System.Collections;
 using System;
 using System.Dynamic;
+using System.Transactions;
 
 
 namespace LW11
 {
     internal class Program
     {
+        #region Helper func
+        static string InputInstrumentType()
+        {
+            string instrType;
+            Console.WriteLine("Choose an instrument: \n1) - Musical instrument (name, id)\n2) - Guitar (name, id, num of strings)\n3) - Electroguitar (guitar + power source)\n4) - Piano (name, id, key layout, number of keys)");
+            int typeInt;
+            typeInt = ValidInput.GetPositiveInt();
+            while (typeInt > 5) 
+            {
+                Console.WriteLine("Enter a number between 1 and 4");
+                typeInt = ValidInput.GetPositiveInt();
+            }
+            switch (typeInt)
+            {
+                case 1:
+                    instrType = "MusicalInstrument";
+                    break;
+                case 2:
+                    instrType = "Guitar";
+                    break;
+                case 3:
+                    instrType = "Eguitar";
+                    break;
+                case 4:
+                    instrType = "Piano";
+                    break;
+                default:
+                    instrType = "Aboba";
+                    break;
+            }
+            return instrType;
+        }
+        static Queue AddToQueue(Queue queue) 
+        { 
+            MusicalInstrument instrument;
+            instrument = GetMusicalInstrument();
+            queue.Enqueue(instrument);
+            return queue;
+        }
+        static MusicalInstrument GetMusicalInstrument()
+        {
+            string instrType;
+            instrType = InputInstrumentType();
+            MusicalInstrument instr = new();
+            switch (instrType)
+            {
+                case "MusicalInstrument":
+                    instr = new MusicalInstrument();
+                    instr.Init();
+                    break;
+                case "Guitar":
+                    instr = new Guitar();
+                    instr.Init();
+                    break;
+                case "Eguitar":
+                    instr = new ElectroGuitar();
+                    instr.Init();
+                    break;
+                case "Piano":
+                    instr = new Piano();
+                    instr.Init();
+                    break;
+                default:
+                    Console.WriteLine("An unexpected error ocurred");
+                    break;
+
+            }
+            return instr;
+        }
+        #endregion
         #region Queue Functions
         public static double AverageNumberOfStrings(Queue instruments)
         {
@@ -28,7 +99,6 @@ namespace LW11
                 return -1;
 
         }
-
         public static int NumberOfStringInElectroGuitarsWithFixedPower(Queue instruments)
         {
             int numberOfStrings = 0;
@@ -46,7 +116,6 @@ namespace LW11
                 return numberOfStrings;
             else return -1;
         }
-
         public static int MaxNumberOfKeysOnOctave(Queue instruments)
         {
 
@@ -81,7 +150,6 @@ namespace LW11
                 order++;
             }
         }
-
         static Queue DeepCopyQueue(Queue originalQueue)
         {
             Queue deepCopy = new Queue();
@@ -101,7 +169,6 @@ namespace LW11
 
             return deepCopy;
         }
-
         static Queue SortQueue(Queue queue)
         {
             int i = 0;
@@ -132,7 +199,6 @@ namespace LW11
 
             return sortedQueue;
         }
-
         static Queue DeleteByPosition(Queue queue, int toDelete)
         {
             Queue delQueue = new Queue();
@@ -150,17 +216,18 @@ namespace LW11
             }
             return delQueue;
         }
-
-        static Queue DeletePiano(Queue queue, Piano pianoToDel)
+        static Queue DeleteInstrument(Queue queue)
         {
+            MusicalInstrument instrument = null;
+            instrument = GetMusicalInstrument();
             Queue delQueue = new Queue();
             bool isFound = false;
             foreach (var item in queue)
             {
-                if (item.GetType() == typeof(Piano))
-                    if (item.Equals(pianoToDel))
+                if (item.GetType() == instrument.GetType())
+                    if (item.Equals(instrument))
                     {
-                        Console.WriteLine("Piano deleted");
+                        Console.WriteLine("Instrument deleted");
                         isFound = true;
                     }
                     else
@@ -169,8 +236,38 @@ namespace LW11
                     delQueue.Enqueue(item);
             }
             if (!isFound)
-                Console.WriteLine("Piano not found");
+                Console.WriteLine("Instrument not found");
             return delQueue;
+        }
+        static MusicalInstrument FindInstrument(Queue queue)
+        {
+            MusicalInstrument instr = new MusicalInstrument();
+            instr = GetMusicalInstrument();
+            int count = 0;
+            if (queue.Count == 0 || queue == null)
+            {
+                Console.WriteLine("Queue is empty");
+                return default;
+            }
+            else if (!queue.Contains(instr))
+            {
+                Console.WriteLine("Element not found");
+            }
+            else 
+            {
+                foreach (var item in queue)
+                {
+                    count++;
+                    if (item.GetType() == instr.GetType())
+                        if (item.Equals(instr))
+                        {
+                            Console.WriteLine($"Item found after {count} comparisons");
+                            return instr;
+                        }
+                            
+                }
+            }
+            return default;
         }
         #endregion
         #region Stack thingies
@@ -182,20 +279,25 @@ namespace LW11
             }
         }
 
-        public static Stack<MusicalInstrument> DeletePiano(Stack<MusicalInstrument> stack, Piano pianoToDel)
+        static Stack<MusicalInstrument> AddToStack(Stack<MusicalInstrument> stack)
         {
+            MusicalInstrument instrument = GetMusicalInstrument();
+            stack.Push(instrument);
+            return stack;
+        }
+        static Stack<MusicalInstrument> DeleteInstrument(Stack<MusicalInstrument> stack)
+        {
+            MusicalInstrument instrument = GetMusicalInstrument();
             Stack<MusicalInstrument> tempStack = new Stack<MusicalInstrument>();
             bool isFound = false;
 
-            // all elems go to temp, until a piano is found
             while (stack.Count > 0)
             {
                 var item = stack.Pop();
-                if (item is Piano piano && piano.Equals(pianoToDel))
+                if (item.Equals(instrument))
                 {
-                    Console.WriteLine("Piano deleted");
+                    Console.WriteLine("Instrument deleted");
                     isFound = true;
-                    // dont put found item in stack
                 }
                 else
                 {
@@ -203,7 +305,7 @@ namespace LW11
                 }
             }
 
-            // put elements bak in right order
+            // Восстанавливаем стек
             while (tempStack.Count > 0)
             {
                 stack.Push(tempStack.Pop());
@@ -211,10 +313,67 @@ namespace LW11
 
             if (!isFound)
             {
-                Console.WriteLine("Piano not found");
+                Console.WriteLine("Instrument not found");
             }
 
             return stack;
+        }
+        static MusicalInstrument FindInstrument(Stack<MusicalInstrument> stack)
+        {
+            Console.WriteLine("Enter the instrument to search for:");
+            MusicalInstrument target = GetMusicalInstrument();
+            int count = 0;
+
+            foreach (var item in stack)
+            {
+                count++;
+                // Проверяем, что типы объектов совпадают
+                if (item.GetType() == target.GetType())
+                {
+                    // Сравниваем объекты только если они одного типа
+                    if (item.Equals(target))
+                    {
+                        Console.WriteLine($"Item found after {count} comparisons.");
+                        return item;
+                    }
+                }
+            }
+
+            // Если элемент не найден
+            Console.WriteLine("Item not found in the stack.");
+            return null;
+        }
+        static Stack<MusicalInstrument> DeepCopyStack(Stack<MusicalInstrument> originalStack)
+        {
+            Stack<MusicalInstrument> deepCopy = new Stack<MusicalInstrument>();
+            MusicalInstrument[] helperArray = originalStack.ToArray();
+
+            foreach (var item in helperArray)
+            {
+                if (item is ICloneable cloneableItem)
+                {
+                    deepCopy.Push((MusicalInstrument)cloneableItem.Clone());
+                }
+                else
+                {
+                    throw new InvalidOperationException("Element does not support cloning");
+                }
+            }
+
+            return deepCopy;
+        }
+        static Stack<MusicalInstrument> SortStack(Stack<MusicalInstrument> stack)
+        {
+            MusicalInstrument[] helperArray = stack.ToArray();
+            Array.Sort(helperArray, (x, y) => x.Name.CompareTo(y.Name)); // Сортировка по имени
+
+            Stack<MusicalInstrument> sortedStack = new Stack<MusicalInstrument>();
+            foreach (var item in helperArray)
+            {
+                sortedStack.Push(item);
+            }
+
+            return sortedStack;
         }
         public static double AverageNumberOfStrings(Stack<MusicalInstrument> instruments)
         {
@@ -246,203 +405,175 @@ namespace LW11
             else
                 return -1;
         }
+        public static int MaxNumberOfKeysOnOctave(Stack<MusicalInstrument> instruments)
+        {
+            Stack<MusicalInstrument> tempStack = new Stack<MusicalInstrument>();
+            int maxNumberOfKeys = -1;
 
+            while (instruments.Count > 0)
+            {
+                var instr = instruments.Pop();
+                if (instr is Piano piano && piano.KeyLayout.Equals("Octave", StringComparison.OrdinalIgnoreCase))
+                {
+                    maxNumberOfKeys = Math.Max(maxNumberOfKeys, piano.KeyCount);
+                }
+                tempStack.Push(instr);
+            }
+
+            while (tempStack.Count > 0)
+            {
+                instruments.Push(tempStack.Pop());
+            }
+
+            return maxNumberOfKeys;
+        }
+        public static int NumberOfStringInElectroGuitarsWithFixedPower(Stack<MusicalInstrument> instruments)
+        {
+            Stack<MusicalInstrument> tempStack = new Stack<MusicalInstrument>();
+            int numberOfStrings = 0;
+
+            while (instruments.Count > 0)
+            {
+                var instr = instruments.Pop();
+                if (instr is ElectroGuitar eGuitar && eGuitar.PowerSource.Equals("Fixed power", StringComparison.OrdinalIgnoreCase))
+                {
+                    numberOfStrings += eGuitar.StringCount;
+                }
+                tempStack.Push(instr);
+            }
+
+            while (tempStack.Count > 0)
+            {
+                instruments.Push(tempStack.Pop());
+            }
+
+            return numberOfStrings;
+        }
 
 
         #endregion
         static void Main(string[] args)
         {
-            //#region Part 1
-
-            
-
-            //Queue instrumentsQueue = new Queue();
-            
-
-            //int size = 5;
-
-            //MusicalInstrument[] instruments = new MusicalInstrument[size];
-            //Random rnd = new Random();
+            #region Part 1
 
 
-            //for (int i = 0; i < instruments.Length; i++)//initializing array of random stuff
-            //{
-            //    switch (rnd.Next(4))
-            //    {
-            //        case 0:
-            //            instruments[i] = new MusicalInstrument();
-            //            break;
-            //        case 1:
-            //            instruments[i] = new Guitar();
-            //            break;
-            //        case 2:
-            //            instruments[i] = new ElectroGuitar();
-            //            break;
-            //        case 3:
-            //            instruments[i] = new Piano();
-            //            break;
 
-            //    }
-            //}
-
-            //foreach (var instr in instruments) //making stuff random
-            //{
-            //    instr.RandomInit();
-            //    instrumentsQueue.Enqueue(instr);
-            //}
-
-            //Console.WriteLine("Created queue:");
-            //PrintQueue(instrumentsQueue);
+            Queue instrumentsQueue = new Queue();
 
 
-            ////adding to queue
-            //Console.WriteLine("Input how much objects to add");
-            //int sizeToAdd = ValidInput.GetInt();
-            //for (int i = 0; i < sizeToAdd; i++) 
-            //{
-            //    switch (rnd.Next(4))
-            //    {
-            //        case 0:
-            //            MusicalInstrument instr = new MusicalInstrument();
-            //            instr.RandomInit();
-            //            instrumentsQueue.Enqueue(instr);
-            //            break;
-            //        case 1:
-            //            instr = new Guitar();
-            //            instr.RandomInit();
-            //            instrumentsQueue.Enqueue(instr);
-            //            break;
-            //        case 2:
-            //            instr = new ElectroGuitar();
-            //            instr.RandomInit();
-            //            instrumentsQueue.Enqueue(instr);
-            //            break;
-            //        case 3:
-            //            instr = new Piano();
-            //            instr.RandomInit();
-            //            instrumentsQueue.Enqueue(instr);
-            //            break;
-            //    }
-            //}
-            //Console.WriteLine("Queue with added elements");
-            //PrintQueue(instrumentsQueue);
-            //Console.WriteLine("Enter a piano");
-            //Piano newPiano = new Piano();
-            //newPiano.Init();
-            //instrumentsQueue.Enqueue(newPiano);
+            int size = 5;
 
-            ////Deleting
-            //Console.WriteLine("Input number of elem to delete");
-            //int posToDelete = ValidInput.GetInt();
-            //instrumentsQueue = DeleteByPosition(instrumentsQueue, posToDelete);
-
-            //Console.WriteLine($"Queue after deleting {posToDelete} element");
-            //PrintQueue(instrumentsQueue);
-
-            //Console.WriteLine("Enter a piano to delete (name, id, keycount, keylayout)");
-            //Piano pianoToDel = new Piano();
-            //pianoToDel.Init();
-            //instrumentsQueue = DeletePiano(instrumentsQueue, pianoToDel);
-            //Console.WriteLine("Queue after deleting (or not) piano");
-            //PrintQueue(instrumentsQueue);
-            //Console.WriteLine("Enter anything to proceed");
-            //Console.ReadLine();
-            //Console.Clear();
-            //PrintQueue(instrumentsQueue);
-            ////1 zapros
-            //if (AverageNumberOfStrings(instrumentsQueue) < 0)
-            //    Console.WriteLine("Array has no guitars");
-            //else
-            //    Console.WriteLine($"Average number of string is {AverageNumberOfStrings(instrumentsQueue)}");
-
-            ////2 zaproa
-            //if (NumberOfStringInElectroGuitarsWithFixedPower(instrumentsQueue) < 0)
-            //    Console.WriteLine("There is no electroguitars with fixed source");
-
-            //else
-            //    Console.WriteLine($"Number of strings in e-guitars with fixed power: {NumberOfStringInElectroGuitarsWithFixedPower(instrumentsQueue)}");
-
-            ////2 zapros
-            //if (MaxNumberOfKeysOnOctave(instrumentsQueue) < 0)
-            //    Console.WriteLine($"There were no pianos with octave keyboard layout");
-            //else
-            //    Console.WriteLine($"Max number of keys on octave keyboard is {MaxNumberOfKeysOnOctave(instrumentsQueue)}");
-
-            ////Cloning queue
-            //Queue cloneInstruments = new Queue();
-            //cloneInstruments = DeepCopyQueue(instrumentsQueue);
-            //Console.WriteLine("Cloned queue");
-            //PrintQueue(cloneInstruments);
-
-            //instrumentsQueue.Dequeue();
-            //instrumentsQueue.Dequeue();
-            //instrumentsQueue.Dequeue();
-            //Console.WriteLine("Original queue after deleting some:");
-            //PrintQueue(instrumentsQueue);
-            //Console.WriteLine("Cloned queue after deleting some stuff from original queue:");
-            //PrintQueue(cloneInstruments);
-            //Console.ReadLine();
-            //Console.Clear();
+            MusicalInstrument[] instruments = new MusicalInstrument[size];
+            Random rnd = new Random();
 
 
-            ////sorting 
-            //Queue sortedQueue = SortQueue(instrumentsQueue);
-            //Console.WriteLine("Unsorted queue");
-            //PrintQueue(instrumentsQueue);
-            //Console.WriteLine("Sorted queue");
-            //PrintQueue(sortedQueue);
+            for (int i = 0; i < instruments.Length; i++)//initializing array of random stuff
+            {
+                switch (rnd.Next(4))
+                {
+                    case 0:
+                        instruments[i] = new MusicalInstrument();
+                        break;
+                    case 1:
+                        instruments[i] = new Guitar();
+                        break;
+                    case 2:
+                        instruments[i] = new ElectroGuitar();
+                        break;
+                    case 3:
+                        instruments[i] = new Piano();
+                        break;
 
-            //#endregion
+                }
+            }
 
-            //#region Part 2
-            //Console.WriteLine("End of part 1");
-            //Console.ReadLine();
-            //Console.Clear();
-            //Stack<MusicalInstrument> instrumentsStack = new Stack<MusicalInstrument>();
-            //Console.WriteLine("Input how much objects to add");
-            //sizeToAdd = ValidInput.GetInt();
-            //for (int i = 0; i < sizeToAdd; i++)
-            //{
-            //    switch (rnd.Next(4))
-            //    {
-            //        case 0:
-            //            MusicalInstrument instr = new MusicalInstrument();
-            //            instr.RandomInit();
-            //            instrumentsStack.Push(instr);
-            //            break;
-            //        case 1:
-            //            instr = new Guitar();
-            //            instr.RandomInit();
-            //            instrumentsStack.Push(instr);
-            //            break;
-            //        case 2:
-            //            instr = new ElectroGuitar();
-            //            instr.RandomInit();
-            //            instrumentsStack.Push(instr);
-            //            break;
-            //        case 3:
-            //            instr = new Piano();
-            //            instr.RandomInit();
-            //            instrumentsStack.Push(instr);
-            //            break;
-            //    }
-            //}
-            //PrintStack(instrumentsStack);
+            foreach (var instr in instruments) //making stuff random
+            {
+                instr.RandomInit();
+                instrumentsQueue.Enqueue(instr);
+            }
 
-            //Console.WriteLine("Enter a piano to add");
+            Console.WriteLine("Created queue:");
+            PrintQueue(instrumentsQueue);
 
-            //Piano piano1 = new Piano();
-            //piano1.Init();
-            //instrumentsStack.Push(piano1);
-            //PrintStack(instrumentsStack);
-            ////delete
-            //Console.WriteLine("Enter a piano to delete");
+            //Adding to queue
+            Console.WriteLine("Adding");
+            instrumentsQueue = AddToQueue(instrumentsQueue);
+            PrintQueue(instrumentsQueue);
+            Console.ReadLine();
+            Console.Clear();
 
-            //pianoToDel.Init();
+            //Deleting
+            Console.WriteLine("Deleting");
+            PrintQueue(instrumentsQueue);
+            instrumentsQueue = DeleteInstrument(instrumentsQueue);
+            PrintQueue(instrumentsQueue);
+            Console.ReadLine();
+            Console.Clear();
 
-            //instrumentsStack = DeletePiano(instrumentsStack, pianoToDel);
+            //Zaprosi
+            //1 zapros
+            if (AverageNumberOfStrings(instrumentsQueue) < 0)
+                Console.WriteLine("Array has no guitars");
+            else
+                Console.WriteLine($"Average number of string is {AverageNumberOfStrings(instrumentsQueue)}");
 
-            //PrintStack(instrumentsStack);
+            //2 zaproa
+            if (NumberOfStringInElectroGuitarsWithFixedPower(instrumentsQueue) < 0)
+                Console.WriteLine("There is no electroguitars with fixed source");
+
+            else
+                Console.WriteLine($"Number of strings in e-guitars with fixed power: {NumberOfStringInElectroGuitarsWithFixedPower(instrumentsQueue)}");
+
+            //2 zapros
+            if (MaxNumberOfKeysOnOctave(instrumentsQueue) < 0)
+                Console.WriteLine($"There were no pianos with octave keyboard layout");
+            else
+                Console.WriteLine($"Max number of keys on octave keyboard is {MaxNumberOfKeysOnOctave(instrumentsQueue)}");
+
+            //Cloning queue
+            Queue cloneInstruments = new Queue();
+            cloneInstruments = DeepCopyQueue(instrumentsQueue);
+            Console.WriteLine("Cloned queue");
+            PrintQueue(cloneInstruments);
+
+            instrumentsQueue.Dequeue();
+            instrumentsQueue.Dequeue();
+            instrumentsQueue.Dequeue();
+            Console.WriteLine("Original queue after deleting some:");
+            PrintQueue(instrumentsQueue);
+            Console.WriteLine("Cloned queue after deleting some stuff from original queue:");
+            PrintQueue(cloneInstruments);
+            Console.ReadLine();
+            Console.Clear();
+
+            //sorting 
+            Queue sortedQueue = SortQueue(instrumentsQueue);
+            Console.WriteLine("Unsorted queue");
+            PrintQueue(instrumentsQueue);
+            Console.WriteLine("Sorted queue");
+            PrintQueue(sortedQueue);
+
+            //Find elem
+            MusicalInstrument target;
+            target = FindInstrument(instrumentsQueue);
+            if (target == null)
+                Console.WriteLine("item not found");
+            else
+                Console.WriteLine(target = FindInstrument(instrumentsQueue));
+
+
+
+
+
+            #endregion
+
+            #region Part 2
+            Console.WriteLine("End of part 1");
+            Console.ReadLine();
+            Console.Clear();
+            Stack<MusicalInstrument> instrumentsStack = new Stack<MusicalInstrument>();
+            Console.WriteLine("Input how much objects to add");
 
 
 
@@ -450,7 +581,8 @@ namespace LW11
 
 
 
-            //#endregion
+
+            #endregion
 
             #region Part 3
             TestCollections testCollections = new TestCollections(1000);

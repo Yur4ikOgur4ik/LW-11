@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MusicalInstruments")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fe931bb0f700c90223bbec8a850aa38c13f4b51c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+14626d6ae3fdbf86265667b5ef54bcc011e93726")]
 [assembly: System.Reflection.AssemblyProductAttribute("MusicalInstruments")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MusicalInstruments")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
