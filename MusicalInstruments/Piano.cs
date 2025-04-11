@@ -116,10 +116,10 @@ namespace MusicalInstruments
             return string.Equals(KeyLayout, other.KeyLayout, StringComparison.OrdinalIgnoreCase) && KeyCount == other.KeyCount;
         }
 
-        public override int GetHashCode()
-        {
-            return base.GetHashCode() ^ KeyLayout.GetHashCode() ^ KeyCount.GetHashCode();
-        }
+        //public override int GetHashCode()
+        //{
+        //    return base.GetHashCode() ^ KeyLayout.GetHashCode() ^ KeyCount.GetHashCode();
+        //}
 
         public override object Clone()
         {
